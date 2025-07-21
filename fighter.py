@@ -134,6 +134,24 @@ class Fighter:
         # Notes: Fighter health cannot exceed the `maxHealth` and cannot be less than `0`.
         self.currHealth = min(max(0, self.currHealth + amount), self.maxHealth)
     
+    def changeMana(self, amount: int) -> None:
+        """
+        Change fighter's mana by `amount`
+
+        Parameters
+        ----------
+        `amount`: int
+            Amount of change.
+            Positive integer for increasing fighter's mana;
+            Negative integer for decreasing fighter's mana.
+        """
+        # Notes: Fighter's mana is also cannot exceed `maxMana` and cannot be less than `0`.
+        changedMana = self.currMana + amount
+        if changedMana < 0:
+            raise ValueError("amount cannot be greater than current mana!")
+        
+        self.currMana = min(changedMana, self.maxMana)
+
     def takeDamage(self, amount: int) -> None:
         """
         Change fighter's health by negative value of `amount`, which resembles damage to fighter's health.
@@ -188,3 +206,6 @@ class Fighter:
         Disable guard status.
         """
         self.isGuard = False
+    
+    def print(self) -> None:
+        print(self)
