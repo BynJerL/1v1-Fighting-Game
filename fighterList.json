@@ -1,0 +1,15 @@
+{
+    "fighters": [
+        {
+            "name": "Alicia",
+            "health": 1200,
+            "mana": 160,
+            "attackPower": 95,
+            "defense": 60,
+            "criticalChance": 25,
+            "criticalDamage": 120,
+            "agility": 5,
+            "accuracy": 95
+        }
+    ]
+}

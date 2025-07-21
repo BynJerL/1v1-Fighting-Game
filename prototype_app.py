@@ -6,7 +6,7 @@ class App:
 
 if __name__ == "__main__":
     app = App()
-    fighter1 = Fighter(name="Hero", health=100, mana=30, attackPower=30, defense=30, criticalChance=15, criticalDamage=100, agility=5)
-    fighter2 = Fighter(name="Dummy", health=100, mana=30, attackPower=30, defense=30, criticalChance=15, criticalDamage=100, agility=5)
+    fighter1 = Fighter(name="Hero", health=100, mana=30, attackPower=30, defense=30, criticalChance=15, criticalDamage=100, agility=5, accuracy=90)
+    fighter2 = Fighter(name="Dummy", health=100, mana=30, attackPower=30, defense=30, criticalChance=15, criticalDamage=100, agility=5, accuracy=90)
     damageData = fighter1.basicAttack(fighter2)
     print(f"Target:{fighter2.name}, damage:{damageData.damage}, isCrit:{damageData.isCrit}, isMiss:{damageData.isMiss}")

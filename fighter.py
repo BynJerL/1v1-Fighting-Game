@@ -23,7 +23,7 @@ class Fighter:
     """
     An object that handles fighter data and actions.
     """
-    def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
+    def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
         """
         The constructor of `Fighter` object.
         
@@ -39,8 +39,10 @@ class Fighter:
             attack power of the fighter.
         `defense` : int
             defense of the fighter.
+        `accuracy`: int
+            attack accuracy of the fighter.
         `agility` : int
-            agility of the fighter
+            agility of the fighter.
         `criticalChance` : float
             percentage of chance of critical hit when fighter do attack.
         `criticalDamage` : float
@@ -56,6 +58,8 @@ class Fighter:
             raise ValueError(f"attackPower must be not less than 0. Got {attackPower}")
         if defense < 0:
             raise ValueError(f"defense must be not less than 0. Got {defense}")
+        if accuracy < 0:
+            raise ValueError(f"accuracy must be not less than 0. Got {accuracy}")
         if agility < 0:
             raise ValueError(f"agility must be not less than 0. Got {agility}")
         if criticalChance < 0:
@@ -70,6 +74,7 @@ class Fighter:
         self.maxMana = mana
         self.attackPower = attackPower
         self.defense = defense
+        self.accuracy = accuracy
         self.agility = agility
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
@@ -105,7 +110,13 @@ class Fighter:
         bool
             missing hit status.
         """
-        return rd.random() * 100 < self.agility
+        divisor = self.accuracy + self.agility
+
+        if divisor == 0:
+            return True
+        
+        hitChance = self.accuracy / divisor
+        return rd.random() > hitChance
 
     def changeHealth(self, amount: int) -> None:
         """
