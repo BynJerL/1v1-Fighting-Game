@@ -10,6 +10,50 @@
             "criticalDamage": 120,
             "agility": 5,
             "accuracy": 95
+        },
+        {
+            "name": "Axel",
+            "health": 1600,
+            "mana": 144,
+            "attackPower": 120,
+            "defense": 84,
+            "criticalChance": 24,
+            "criticalDamage": 100,
+            "agility": 4,
+            "accuracy": 94
+        },
+        {
+            "name": "Brine",
+            "health": 1500,
+            "mana": 180,
+            "attackPower": 100,
+            "defense": 75,
+            "criticalChance": 5,
+            "criticalDamage": 150,
+            "agility": 6,
+            "accuracy": 92
+        },
+        {
+            "name": "Patrice",
+            "health": 1000,
+            "mana": 200,
+            "attackPower": 100,
+            "defense": 64,
+            "criticalChance": 36,
+            "criticalDamage": 100,
+            "agility": 6,
+            "accuracy": 96
+        },
+        {
+            "name": "Lenz",
+            "health": 960,
+            "mana": 220,
+            "attackPower": 144,
+            "defense": 96,
+            "criticalChance": 24,
+            "criticalDamage": 135,
+            "agility": 10,
+            "accuracy": 100
         }
     ]
 }
