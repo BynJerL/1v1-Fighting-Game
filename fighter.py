@@ -70,3 +70,25 @@ class Fighter:
         """
         # Notes: Fighter health cannot exceed the `maxHealth` and cannot be less than `0`.
         self.currHealth = min(max(0, self.currHealth + amount), self.maxHealth)
+    
+    def takeDamage(self, amount: int) -> None:
+        """
+        Change fighter's health by negative value of `amount`, which resembles damage to fighter's health.
+
+        Parameters
+        ----------
+        `amount`: int
+            Amount of damage.
+        """
+        self.changeHealth(amount=-amount)
+    
+    def heal(self, amount: int) -> None:
+        """
+        Change fighter's health by positive value of `amount`, which resembles restoration of fighter's health.
+        
+        Parameters
+        ----------
+        `amount`: int
+            Amount of heal.
+        """
+        self.changeHealth(amount=amount)
