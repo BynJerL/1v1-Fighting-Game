@@ -78,6 +78,8 @@ class Fighter:
         self.agility = agility
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
+
+        self.isGuard = False
     
     def isAlive(self) -> bool:
         """
@@ -154,7 +156,7 @@ class Fighter:
         """
         self.changeHealth(amount=amount)
     
-    def basicAttack(self, target: "Fighter"):
+    def basicAttack(self, target: "Fighter") -> DamageData:
         """
         Perform basic attack to another fighter.
 
@@ -167,10 +169,22 @@ class Fighter:
         isCrit = self.rollCrit() if not isMiss else False
         if not isMiss:
             rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
-            netDamage = max(0, round(rawDamage - 0.2 * target.defense))
+            netDamage = max(0, round(rawDamage - (0.2 + 0.5 * target.isGuard) * target.defense))
             target.takeDamage(netDamage)
         else:
             netDamage = 0
 
         damageData = DamageData(damage=netDamage, isCrit=isCrit, isMiss=isMiss)
         return damageData
+    
+    def enableGuard(self) -> None:
+        """
+        Enable guard status.
+        """
+        self.isGuard = True
+    
+    def disableGuard(self) -> None:
+        """
+        Disable guard status.
+        """
+        self.isGuard = False
