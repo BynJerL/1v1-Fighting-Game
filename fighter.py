@@ -209,3 +209,26 @@ class Fighter:
     
     def print(self) -> None:
         print(self)
+
+    def __str__(self) -> str:
+        """
+        Get string representation of the object
+
+        Returns
+        -------
+        `str`
+            string representation of the fighter object.
+        """
+        return (
+            f"{self.name} [HP: {self.currHealth}/{self.maxHealth}, "
+            f"Mana: {self.currMana}/{self.maxMana}, "
+            f"ATK: {self.attackPower}, DEF: {self.defense}, "
+            f"CRIT: {self.criticalChance:.1f}% (+{self.criticalDamage:.1f}%), "
+            f"ACR: {self.accuracy}, AGI: {self.agility}]"
+        )
+    
+    def __repr__(self) -> str:
+        """
+        Clean view for developer.
+        """
+        return f"Fighter(name={self.name}, health={self.currHealth}/{self.maxHealth})"
