@@ -1,7 +1,12 @@
+import random as rd
+
 class Fighter:
+    """
+    An object that handles fighter data and actions.
+    """
     def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, criticalChance: float, criticalDamage: float) -> None:
         """
-        An object that handles fighter data and actions.
+        The constructor of `Fighter` object.
         
         Parameters
         ----------
@@ -16,7 +21,7 @@ class Fighter:
         `defense` : int
             defense of the fighter.
         `criticalChance` : float
-            chance of critical hit when fighter do attack (in-percentage).
+            percentage of chance of critical hit when fighter do attack.
         `criticalDamage` : float
             percentage of additional damage when fighter dealt critical hit.
         """
@@ -40,3 +45,14 @@ class Fighter:
             player life status. 
         """
         return self.currHealth > 0
+    
+    def isCrit(self) -> bool:
+        """
+        (Use when attacking) check if the fighter dealt critical hit or not.
+
+        Returns
+        -------
+        bool
+            critical hit status.
+        """
+        return rd.random() * 100 < self.criticalChance
