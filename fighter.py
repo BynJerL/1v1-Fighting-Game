@@ -41,6 +41,21 @@ class Fighter:
         `criticalDamage` : float
             percentage of additional damage when fighter dealt critical hit.
         """
+        if len(name) < 0:
+            raise ValueError(f"cannot insert empty name.")
+        if health < 0:
+            raise ValueError(f"health must be not less than 0. Got {health}")
+        if mana < 0:
+            raise ValueError(f"mana must be not less than 0. Got {mana}")
+        if attackPower < 0:
+            raise ValueError(f"attackPower must be not less than 0. Got {attackPower}")
+        if defense < 0:
+            raise ValueError(f"defense must be not less than 0. Got {defense}")
+        if criticalChance < 0:
+            raise ValueError(f"criticalChance must be not less than 0. Got {criticalChance}")
+        if criticalDamage < 0:
+            raise ValueError(f"criticalDamage must be not less than 0. Got {criticalDamage}")
+
         self.name = name
         self.currHealth = health
         self.maxHealth = health
@@ -120,7 +135,7 @@ class Fighter:
         """
         isCrit = self.isCrit()
         rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
-        netDamage = round(rawDamage - 0.2 * target.defense)
+        netDamage = max(0, round(rawDamage - 0.2 * target.defense))
         target.takeDamage(netDamage)
 
         damageData = DamageData(damage=netDamage, isCrit=isCrit)
