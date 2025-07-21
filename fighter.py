@@ -56,3 +56,17 @@ class Fighter:
             critical hit status.
         """
         return rd.random() * 100 < self.criticalChance
+    
+    def changeHealth(self, amount: int) -> None:
+        """
+        Change fighter health by `amount`.
+
+        Parameters
+        ----------
+        `amount`: int
+            Amount of change. 
+            Positive integer for increasing fighter's health; 
+            Negative integer for decreasing fighter's health.
+        """
+        # Notes: Fighter health cannot exceed the `maxHealth` and cannot be less than `0`.
+        self.currHealth = min(max(0, self.currHealth + amount), self.maxHealth)
