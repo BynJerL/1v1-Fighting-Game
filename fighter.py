@@ -1,4 +1,20 @@
 import random as rd
+from dataclasses import dataclass
+
+@dataclass
+class DamageData:
+    """
+    An object that used to store damage data from performed attack.
+    
+    Attributes
+    ----------
+    damage: int
+        total damage caused by the attack.
+    isCrit: bool
+        critical hit status.
+    """
+    damage: int
+    isCrit: bool
 
 class Fighter:
     """
@@ -92,3 +108,20 @@ class Fighter:
             Amount of heal.
         """
         self.changeHealth(amount=amount)
+    
+    def basicAttack(self, target: "Fighter"):
+        """
+        Perform basic attack to another fighter.
+
+        Parameters
+        ----------
+        `target`: Fighter
+            target of your attack.
+        """
+        isCrit = self.isCrit()
+        rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
+        netDamage = round(rawDamage - 0.2 * target.defense)
+        target.takeDamage(netDamage)
+
+        damageData = DamageData(damage=netDamage, isCrit=isCrit)
+        return damageData
