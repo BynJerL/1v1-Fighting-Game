@@ -5,19 +5,19 @@ class Fighter:
         
         Parameters
         ----------
-        name : str
+        `name` : str
             name of the fighter.
-        health : int
+        `health` : int
             health of the fighter.
-        mana : int
+        `mana` : int
             mana capacity of the fighter.
-        attackPower : int
+        `attackPower` : int
             attack power of the fighter.
-        defense : int
+        `defense` : int
             defense of the fighter.
-        criticalChance : float
+        `criticalChance` : float
             chance of critical hit when fighter do attack (in-percentage).
-        criticalDamage : float
+        `criticalDamage` : float
             percentage of additional damage when fighter dealt critical hit.
         """
         self.name = name
@@ -29,3 +29,14 @@ class Fighter:
         self.defense = defense
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
+    
+    def isAlive(self) -> bool:
+        """
+        Check if the fighter's is alive or not.
+
+        Returns
+        ------- 
+        bool 
+            player life status. 
+        """
+        return self.currHealth > 0
