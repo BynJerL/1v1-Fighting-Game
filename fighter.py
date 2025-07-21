@@ -12,15 +12,18 @@ class DamageData:
         total damage caused by the attack.
     isCrit: bool
         critical hit status.
+    isMiss: bool
+        missing hit status.
     """
     damage: int
     isCrit: bool
+    isMiss: bool
 
 class Fighter:
     """
     An object that handles fighter data and actions.
     """
-    def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, criticalChance: float, criticalDamage: float) -> None:
+    def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
         """
         The constructor of `Fighter` object.
         
@@ -36,6 +39,8 @@ class Fighter:
             attack power of the fighter.
         `defense` : int
             defense of the fighter.
+        `agility` : int
+            agility of the fighter
         `criticalChance` : float
             percentage of chance of critical hit when fighter do attack.
         `criticalDamage` : float
@@ -51,6 +56,8 @@ class Fighter:
             raise ValueError(f"attackPower must be not less than 0. Got {attackPower}")
         if defense < 0:
             raise ValueError(f"defense must be not less than 0. Got {defense}")
+        if agility < 0:
+            raise ValueError(f"agility must be not less than 0. Got {agility}")
         if criticalChance < 0:
             raise ValueError(f"criticalChance must be not less than 0. Got {criticalChance}")
         if criticalDamage < 0:
@@ -63,6 +70,7 @@ class Fighter:
         self.maxMana = mana
         self.attackPower = attackPower
         self.defense = defense
+        self.agility = agility
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
     
@@ -77,7 +85,7 @@ class Fighter:
         """
         return self.currHealth > 0
     
-    def isCrit(self) -> bool:
+    def rollCrit(self) -> bool:
         """
         (Use when attacking) check if the fighter dealt critical hit or not.
 
@@ -88,6 +96,17 @@ class Fighter:
         """
         return rd.random() * 100 < self.criticalChance
     
+    def rollMiss(self) -> bool:
+        """
+        (Use when being attacked) check if the fighter can evade incoming attack.
+
+        Returns
+        -------
+        bool
+            missing hit status.
+        """
+        return rd.random() * 100 < self.agility
+
     def changeHealth(self, amount: int) -> None:
         """
         Change fighter health by `amount`.
@@ -133,10 +152,14 @@ class Fighter:
         `target`: Fighter
             target of your attack.
         """
-        isCrit = self.isCrit()
-        rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
-        netDamage = max(0, round(rawDamage - 0.2 * target.defense))
-        target.takeDamage(netDamage)
+        isMiss = target.rollMiss()
+        isCrit = self.rollCrit() if not isMiss else False
+        if not isMiss:
+            rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
+            netDamage = max(0, round(rawDamage - 0.2 * target.defense))
+            target.takeDamage(netDamage)
+        else:
+            netDamage = 0
 
-        damageData = DamageData(damage=netDamage, isCrit=isCrit)
+        damageData = DamageData(damage=netDamage, isCrit=isCrit, isMiss=isMiss)
         return damageData
