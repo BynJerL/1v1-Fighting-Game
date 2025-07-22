@@ -108,14 +108,14 @@ class Fighter:
     @property
     def health(self) -> int:
         """
-        current health point of the fighter.
+        (read-only) current health point of the fighter.
         """
         return self.currHealth
     
     @property
     def mana(self) -> int:
         """
-        current mana point of the fighter.
+        (read-only) current mana point of the fighter.
         """
         return self.currMana
     
@@ -324,8 +324,8 @@ class Fighter:
             string representation of the fighter object.
         """
         return (
-            f"{self.name} [HP: {self.currHealth}/{self.maxHealth}, "
-            f"Mana: {self.currMana}/{self.maxMana}, "
+            f"{self.name} [HP: {self.health}/{self.maxHealth}, "
+            f"Mana: {self.mana}/{self.maxMana}, "
             f"ATK: {self.strength}|{self.intelligence}, DEF: {self.defense}|{self.spirit}, "
             f"CRIT: {self.criticalChance:.1f}% (+{self.criticalDamage:.1f}%), "
             f"ACR: {self.accuracy}, AGI: {self.agility}, MREG: {self.manaRegen}]"
@@ -335,4 +335,4 @@ class Fighter:
         """
         Clean view for developer.
         """
-        return f"Fighter(name={self.name}, health={self.currHealth}/{self.maxHealth})"
+        return f"Fighter(name={self.name}, health={self.health}/{self.maxHealth})"

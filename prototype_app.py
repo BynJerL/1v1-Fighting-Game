@@ -3,13 +3,13 @@ import json
 
 class App:
     def __init__(self):
-        self.playedFighter = None
+        pass
 
     def loadFighterData(self, index):
         with open("fighterList.json", "r") as file:
             data = json.load(file)
         fighterData = data.get("fighters", [])[index]
-        self.playedFighter = Fighter(
+        return Fighter(
             name=fighterData['name'],
             health=fighterData['health'],
             maxHealth=fighterData['health'],
@@ -33,6 +33,22 @@ if __name__ == "__main__":
     # damageData = fighter1.basicAttack(fighter2)
     # print(f"Target:{fighter2.name}, damage:{damageData.damage}, isCrit:{damageData.isCrit}, isMiss:{damageData.isMiss}")
     # fighter2.print()
-    app.loadFighterData(4)
-    app.playedFighter.print()
-    print(app.playedFighter.getDeadFlag())
+    fighter1 = app.loadFighterData(4)
+    fighter2 = app.loadFighterData(3)
+
+    for x in range(12):
+        fighter1.print()
+        fighter2.print()
+
+        damageData = fighter1.basicAttack(fighter2)
+        fighter2.checkAlive()
+        print(damageData)
+        if fighter2.getDeadFlag() == True:
+            print(f"{fighter1.name} Win!")
+            break
+        damageData = fighter2.basicAttack(fighter1)
+        fighter1.checkAlive()
+        print(damageData)
+        if fighter1.getDeadFlag() == True:
+            print(f"{fighter2.name} Win!")
+            break
