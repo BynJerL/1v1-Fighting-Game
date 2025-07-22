@@ -23,7 +23,7 @@ class Fighter:
     """
     An object that handles fighter data and actions.
     """
-    def __init__(self, name: str, health: int, maxHealth: int, mana: int, maxMana: int, strength: int, intelligence: int, defense: int, spirit: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
+    def __init__(self, name: str, health: int, maxHealth: int, mana: int, maxMana: int, strength: int, intelligence: int, defense: int, spirit: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float, manaRegen: int) -> None:
         """
         The constructor of `Fighter` object.
         
@@ -55,6 +55,8 @@ class Fighter:
             percentage of chance of critical hit when fighter do attack.
         `criticalDamage` : float
             percentage of additional damage when fighter dealt critical hit.
+        `manaRegen` : int
+            mana regeneration power of the fighter.
         """
         if len(name) < 0:
             raise ValueError(f"cannot insert empty name.")
@@ -82,6 +84,8 @@ class Fighter:
             raise ValueError(f"criticalChance must be not less than 0. Got {criticalChance}")
         if criticalDamage < 0:
             raise ValueError(f"criticalDamage must be not less than 0. Got {criticalDamage}")
+        if manaRegen < 0:
+            raise ValueError(f"agility must be not less than 0. Got {manaRegen}")
 
         self.name = name
         self.currHealth = health
@@ -96,6 +100,7 @@ class Fighter:
         self.agility = agility
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
+        self.manaRegen = manaRegen
 
         self.__isGuard = False
         self.__isDead = False
@@ -289,7 +294,7 @@ class Fighter:
             f"Mana: {self.currMana}/{self.maxMana}, "
             f"ATK: {self.strength}|{self.intelligence}, DEF: {self.defense}|{self.spirit}, "
             f"CRIT: {self.criticalChance:.1f}% (+{self.criticalDamage:.1f}%), "
-            f"ACR: {self.accuracy}, AGI: {self.agility}]"
+            f"ACR: {self.accuracy}, AGI: {self.agility}, MREG: {self.manaRegen}]"
         )
     
     def __repr__(self) -> str:

@@ -11,7 +11,8 @@
             "criticalChance": 25,
             "criticalDamage": 120,
             "agility": 5,
-            "accuracy": 95
+            "accuracy": 95,
+            "manaRegen": 10
         },
         {
             "name": "Axel",
@@ -24,7 +25,8 @@
             "criticalChance": 24,
             "criticalDamage": 100,
             "agility": 4,
-            "accuracy": 94
+            "accuracy": 94,
+            "manaRegen": 8
         },
         {
             "name": "Brine",
@@ -37,7 +39,8 @@
             "criticalChance": 5,
             "criticalDamage": 150,
             "agility": 6,
-            "accuracy": 92
+            "accuracy": 92,
+            "manaRegen": 10
         },
         {
             "name": "Patrice",
@@ -50,7 +53,8 @@
             "criticalChance": 36,
             "criticalDamage": 100,
             "agility": 6,
-            "accuracy": 96
+            "accuracy": 96,
+            "manaRegen": 11
         },
         {
             "name": "Lenz",
@@ -63,7 +67,8 @@
             "criticalChance": 24,
             "criticalDamage": 135,
             "agility": 10,
-            "accuracy": 100
+            "accuracy": 100,
+            "manaRegen": 15
         }
     ]
 }

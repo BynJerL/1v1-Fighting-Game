@@ -22,7 +22,8 @@ class App:
             accuracy=fighterData['accuracy'],
             agility=fighterData['agility'],
             criticalChance=fighterData['criticalChance'],
-            criticalDamage=fighterData['criticalDamage']
+            criticalDamage=fighterData['criticalDamage'],
+            manaRegen=fighterData['manaRegen']
         )
 
 if __name__ == "__main__":
