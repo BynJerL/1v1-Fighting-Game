@@ -23,7 +23,7 @@ class Fighter:
     """
     An object that handles fighter data and actions.
     """
-    def __init__(self, name: str, health: int, maxHealth: int, mana: int, maxMana: int, attackPower: int, defense: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
+    def __init__(self, name: str, health: int, maxHealth: int, mana: int, maxMana: int, strength: int, intelligence: int, defense: int, spirit: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
         """
         The constructor of `Fighter` object.
         
@@ -39,10 +39,14 @@ class Fighter:
             mana capacity of the fighter.
         `maxMana` : int
             maximum mana capacity of the fighter.
-        `attackPower` : int
-            attack power of the fighter.
+        `strength` : int
+            strength of the fighter.
+        `intelligence`: int
+            intelligence of the fighter.
         `defense` : int
             defense of the fighter.
+        `spirit` : int
+            spiritual defense of the fighter.
         `accuracy`: int
             attack accuracy of the fighter.
         `agility` : int
@@ -62,10 +66,14 @@ class Fighter:
             raise ValueError(f"mana must be not less than 0. Got {mana}")
         if maxMana < 0:
             raise ValueError(f"maxMana must be not less than 0. Got {maxMana}")
-        if attackPower < 0:
-            raise ValueError(f"attackPower must be not less than 0. Got {attackPower}")
+        if strength < 0:
+            raise ValueError(f"attackPower must be not less than 0. Got {strength}")
+        if intelligence < 0:
+            raise ValueError(f"attackPower must be not less than 0. Got {intelligence}")
         if defense < 0:
             raise ValueError(f"defense must be not less than 0. Got {defense}")
+        if spirit < 0:
+            raise ValueError(f"attackPower must be not less than 0. Got {spirit}")
         if accuracy < 0:
             raise ValueError(f"accuracy must be not less than 0. Got {accuracy}")
         if agility < 0:
@@ -80,8 +88,10 @@ class Fighter:
         self.maxHealth = maxHealth
         self.currMana = mana
         self.maxMana = maxMana
-        self.attackPower = attackPower
+        self.strength = strength
+        self.intelligence = intelligence
         self.defense = defense
+        self.spirit = spirit
         self.accuracy = accuracy
         self.agility = agility
         self.criticalChance = criticalChance
@@ -224,10 +234,11 @@ class Fighter:
         `target`: Fighter
             target of your attack.
         """
+        # Note: For now, the basic attack are using strength and not intelligence.
         isMiss = target.rollMiss()
         isCrit = self.rollCrit() if not isMiss else False
         if not isMiss:
-            rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
+            rawDamage = self.strength * (1 + 0.01 * isCrit * self.criticalDamage)
             netDamage = max(0, round(rawDamage - (0.2 + 0.5 * target.__isGuard) * target.defense))
             target.takeDamage(netDamage)
         else:
@@ -276,7 +287,7 @@ class Fighter:
         return (
             f"{self.name} [HP: {self.currHealth}/{self.maxHealth}, "
             f"Mana: {self.currMana}/{self.maxMana}, "
-            f"ATK: {self.attackPower}, DEF: {self.defense}, "
+            f"ATK: {self.strength}|{self.intelligence}, DEF: {self.defense}|{self.spirit}, "
             f"CRIT: {self.criticalChance:.1f}% (+{self.criticalDamage:.1f}%), "
             f"ACR: {self.accuracy}, AGI: {self.agility}]"
         )
