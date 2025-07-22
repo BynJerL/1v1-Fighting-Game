@@ -229,6 +229,7 @@ class Fighter:
         `amount`: int
             amount of mana restoration.
         """
+        self.changeMana(amount=amount)
 
     def basicAttack(self, target: "Fighter") -> DamageData:
         """
