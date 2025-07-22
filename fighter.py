@@ -87,7 +87,8 @@ class Fighter:
         self.criticalChance = criticalChance
         self.criticalDamage = criticalDamage
 
-        self.isGuard = False
+        self.__isGuard = False
+        self.__isDead = False
     
     def isAlive(self) -> bool:
         """
@@ -227,7 +228,7 @@ class Fighter:
         isCrit = self.rollCrit() if not isMiss else False
         if not isMiss:
             rawDamage = self.attackPower * (1 + 0.01 * isCrit * self.criticalDamage)
-            netDamage = max(0, round(rawDamage - (0.2 + 0.5 * target.isGuard) * target.defense))
+            netDamage = max(0, round(rawDamage - (0.2 + 0.5 * target.__isGuard) * target.defense))
             target.takeDamage(netDamage)
         else:
             netDamage = 0
@@ -239,14 +240,27 @@ class Fighter:
         """
         Enable guard status.
         """
-        self.isGuard = True
+        self.__isGuard = True
     
     def disableGuard(self) -> None:
         """
         Disable guard status.
         """
-        self.isGuard = False
+        self.__isGuard = False
     
+    def checkAlive(self) -> None:
+        """
+        Check the player life flag status.
+        """
+        if not self.isAlive():
+            self.__isDead = True
+    
+    def getDeadFlag(self) -> bool:
+        """
+        Get the player life flag status.
+        """
+        return self.__isDead
+
     def print(self) -> None:
         print(self)
 

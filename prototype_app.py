@@ -32,3 +32,4 @@ if __name__ == "__main__":
     # fighter2.print()
     app.loadFighterData(4)
     app.playedFighter.print()
+    print(app.playedFighter.getDeadFlag())
