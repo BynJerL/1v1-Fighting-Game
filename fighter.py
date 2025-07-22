@@ -182,6 +182,27 @@ class Fighter:
         """
         self.changeHealth(amount=amount)
     
+    def consumeMana(self, amount: int) -> None:
+        """
+        decrease fighter's mana by `amount`.
+
+        Parameter
+        ---------
+        `amount`: int
+            amount of mana consumption.
+        """
+        self.changeMana(amount=-amount)
+    
+    def restoreMana(self, amount: int) -> None:
+        """
+        increase fighter's mana by `amount`
+
+        Parameters
+        ----------
+        `amount`: int
+            amount of mana restoration.
+        """
+
     def basicAttack(self, target: "Fighter") -> DamageData:
         """
         Perform basic attack to another fighter.
