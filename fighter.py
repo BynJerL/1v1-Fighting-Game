@@ -181,6 +181,17 @@ class Fighter:
             Amount of heal.
         """
         self.changeHealth(amount=amount)
+
+    def hasEnoughMana(self, cost: int) -> bool:
+        """
+        Check if the fighter's mana is enough for performing a skill.
+
+        Parameters
+        ----------
+        `cost`: int
+            mana cost of the skill.
+        """
+        return self.currMana >= cost
     
     def consumeMana(self, amount: int) -> None:
         """
