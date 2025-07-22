@@ -8,11 +8,11 @@ class DamageData:
     
     Attributes
     ----------
-    damage: int
+    `damage`: int
         total damage caused by the attack.
-    isCrit: bool
+    `isCrit`: bool
         critical hit status.
-    isMiss: bool
+    `isMiss`: bool
         missing hit status.
     """
     damage: int
@@ -23,7 +23,7 @@ class Fighter:
     """
     An object that handles fighter data and actions.
     """
-    def __init__(self, name: str, health: int, mana: int, attackPower: int, defense: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
+    def __init__(self, name: str, health: int, maxHealth: int, mana: int, maxMana: int, attackPower: int, defense: int, accuracy: int, agility: int, criticalChance: float, criticalDamage: float) -> None:
         """
         The constructor of `Fighter` object.
         
@@ -33,8 +33,12 @@ class Fighter:
             name of the fighter.
         `health` : int
             health of the fighter.
+        `maxHealth` : int
+            maximum health of the fighter.
         `mana` : int
             mana capacity of the fighter.
+        `maxMana` : int
+            maximum mana capacity of the fighter.
         `attackPower` : int
             attack power of the fighter.
         `defense` : int
@@ -52,8 +56,12 @@ class Fighter:
             raise ValueError(f"cannot insert empty name.")
         if health < 0:
             raise ValueError(f"health must be not less than 0. Got {health}")
+        if maxHealth < 0:
+            raise ValueError(f"maxHealth must be not less than 0. Got {maxHealth}")
         if mana < 0:
             raise ValueError(f"mana must be not less than 0. Got {mana}")
+        if maxMana < 0:
+            raise ValueError(f"maxMana must be not less than 0. Got {maxMana}")
         if attackPower < 0:
             raise ValueError(f"attackPower must be not less than 0. Got {attackPower}")
         if defense < 0:
@@ -69,9 +77,9 @@ class Fighter:
 
         self.name = name
         self.currHealth = health
-        self.maxHealth = health
+        self.maxHealth = maxHealth
         self.currMana = mana
-        self.maxMana = mana
+        self.maxMana = maxMana
         self.attackPower = attackPower
         self.defense = defense
         self.accuracy = accuracy
