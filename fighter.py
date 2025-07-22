@@ -230,6 +230,12 @@ class Fighter:
             amount of mana restoration.
         """
         self.changeMana(amount=amount)
+    
+    def passiveManaRegen(self):
+        """
+        Regenerates mana based on mana regeneration power.
+        """
+        self.restoreMana(self.manaRegen)
 
     def basicAttack(self, target: "Fighter") -> DamageData:
         """
