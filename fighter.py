@@ -58,7 +58,7 @@ class Fighter:
         `manaRegen` : int
             mana regeneration power of the fighter.
         """
-        if len(name) < 0:
+        if len(name) == 0:
             raise ValueError(f"cannot insert empty name.")
         if health < 0:
             raise ValueError(f"health must be not less than 0. Got {health}")
@@ -69,13 +69,13 @@ class Fighter:
         if maxMana < 0:
             raise ValueError(f"maxMana must be not less than 0. Got {maxMana}")
         if strength < 0:
-            raise ValueError(f"attackPower must be not less than 0. Got {strength}")
+            raise ValueError(f"strength must be not less than 0. Got {strength}")
         if intelligence < 0:
-            raise ValueError(f"attackPower must be not less than 0. Got {intelligence}")
+            raise ValueError(f"intelligence must be not less than 0. Got {intelligence}")
         if defense < 0:
             raise ValueError(f"defense must be not less than 0. Got {defense}")
         if spirit < 0:
-            raise ValueError(f"attackPower must be not less than 0. Got {spirit}")
+            raise ValueError(f"spirit must be not less than 0. Got {spirit}")
         if accuracy < 0:
             raise ValueError(f"accuracy must be not less than 0. Got {accuracy}")
         if agility < 0:
@@ -85,7 +85,7 @@ class Fighter:
         if criticalDamage < 0:
             raise ValueError(f"criticalDamage must be not less than 0. Got {criticalDamage}")
         if manaRegen < 0:
-            raise ValueError(f"agility must be not less than 0. Got {manaRegen}")
+            raise ValueError(f"manaRegen must be not less than 0. Got {manaRegen}")
 
         self.name = name
         self.currHealth = health
@@ -127,21 +127,28 @@ class Fighter:
         """
         return rd.random() * 100 < self.criticalChance
     
-    def rollMiss(self) -> bool:
+    def rollMiss(self, attacker: "Fighter") -> bool:
         """
         (Use when being attacked) check if the fighter can evade incoming attack.
+
+        Parameters
+        ----------
+        `self`: Fighter
+            defender fighter.
+        `attacker`: Fighter
+            attacker fighter.
 
         Returns
         -------
         bool
             missing hit status.
         """
-        divisor = self.accuracy + self.agility
+        divisor = attacker.accuracy + self.agility
 
         if divisor == 0:
             return True
         
-        hitChance = self.accuracy / divisor
+        hitChance = attacker.accuracy / divisor
         return rd.random() > hitChance
 
     def changeHealth(self, amount: int) -> None:
@@ -247,7 +254,7 @@ class Fighter:
             target of your attack.
         """
         # Note: For now, the basic attack are using strength and not intelligence.
-        isMiss = target.rollMiss()
+        isMiss = target.rollMiss(attacker=self)
         isCrit = self.rollCrit() if not isMiss else False
         if not isMiss:
             rawDamage = self.strength * (1 + 0.01 * isCrit * self.criticalDamage)
