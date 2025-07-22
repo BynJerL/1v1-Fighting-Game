@@ -280,6 +280,27 @@ class Fighter:
         damageData = DamageData(damage=netDamage, isCrit=isCrit, isMiss=isMiss)
         return damageData
     
+    def basicMagicAttack(self, target: "Fighter") -> DamageData:
+        """
+        Perform basic magical attack to another fighter.
+
+        Parameters
+        ----------
+        `target`: Fighter
+            target of your attack.
+        """
+        isMiss = target.rollMiss(self)
+        isCrit = self.rollCrit() if not isMiss else False
+        if not isMiss:
+            rawDamage = self.intelligence * (1 + 0.01 * isCrit * self.criticalDamage)
+            netDamage = max(0, round(rawDamage - target.getDefenseFactor() * target.spirit))
+            target.takeDamage(netDamage)
+        else:
+            netDamage = 0
+        
+        damageData = DamageData(damage=netDamage, isCrit=isCrit, isMiss=isMiss)
+        return damageData
+    
     def enableGuard(self) -> None:
         """
         Enable guard status.

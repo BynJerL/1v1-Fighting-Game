@@ -33,20 +33,20 @@ if __name__ == "__main__":
     # damageData = fighter1.basicAttack(fighter2)
     # print(f"Target:{fighter2.name}, damage:{damageData.damage}, isCrit:{damageData.isCrit}, isMiss:{damageData.isMiss}")
     # fighter2.print()
-    fighter1 = app.loadFighterData(4)
-    fighter2 = app.loadFighterData(3)
+    fighter1 = app.loadFighterData(0)
+    fighter2 = app.loadFighterData(4)
 
     for x in range(12):
         fighter1.print()
         fighter2.print()
 
-        damageData = fighter1.basicAttack(fighter2)
+        damageData = fighter1.basicMagicAttack(fighter2)
         fighter2.checkAlive()
         print(damageData)
         if fighter2.getDeadFlag() == True:
             print(f"{fighter1.name} Win!")
             break
-        damageData = fighter2.basicAttack(fighter1)
+        damageData = fighter2.basicMagicAttack(fighter1)
         fighter1.checkAlive()
         print(damageData)
         if fighter1.getDeadFlag() == True:
