@@ -253,12 +253,12 @@ class Fighter:
         `target`: Fighter
             target of your attack.
         """
-        # Note: For now, the basic attack are using strength and not intelligence.
+        # Note: For now, the basic attack are using strength and not intelligence; defense and not spirit.
         isMiss = target.rollMiss(attacker=self)
         isCrit = self.rollCrit() if not isMiss else False
         if not isMiss:
             rawDamage = self.strength * (1 + 0.01 * isCrit * self.criticalDamage)
-            netDamage = max(0, round(rawDamage - (0.2 + 0.5 * target.__isGuard) * target.defense))
+            netDamage = max(0, round(rawDamage - target.getDefenseFactor() * target.defense))
             target.takeDamage(netDamage)
         else:
             netDamage = 0
@@ -287,9 +287,15 @@ class Fighter:
     
     def getDeadFlag(self) -> bool:
         """
-        Get the player life flag status.
+        Get the fighter's life flag status.
         """
         return self.__isDead
+    
+    def getDefenseFactor(self) -> bool:
+        """
+        Get the fighter's defense factor.
+        """
+        return 0.7 if self.__isGuard else 0.2
 
     def print(self) -> None:
         print(self)
