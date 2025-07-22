@@ -104,6 +104,20 @@ class Fighter:
 
         self.__isGuard = False
         self.__isDead = False
+
+    @property
+    def health(self) -> int:
+        """
+        current health point of the fighter.
+        """
+        return self.currHealth
+    
+    @property
+    def mana(self) -> int:
+        """
+        current mana point of the fighter.
+        """
+        return self.currMana
     
     def isAlive(self) -> bool:
         """
