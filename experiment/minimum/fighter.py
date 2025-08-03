@@ -109,11 +109,11 @@ class Battle:
             if attacker.isManaAvailable(attacker.skills[0].manaCost):
                 # Use the first skill for simplicity
                 damage = attacker.skills[0].use(attacker, defender)
-                print(f"{attacker.name} (HP: {attacker.getHpStatus}) used {attacker.skills[0].name} on {defender.name} dealing {damage} damage!")
+                print(f"{attacker.name} (HP: {attacker.getHpStatus}, SP: {attacker.getManaStatus}) used {attacker.skills[0].name} on {defender.name} dealing {damage} damage!")
             else:
                 # Example attack
                 attackDamage = attacker.attack(defender)
-                print(f"{attacker.name} (HP: {attacker.getHpStatus}) dealt {attackDamage * -1} HP to {defender.name}!")
+                print(f"{attacker.name} (HP: {attacker.getHpStatus}, SP: {attacker.getManaStatus}) dealt {attackDamage * -1} HP to {defender.name}!")
             
             if not defender.isAlive:
                 self.winner = attacker
@@ -134,7 +134,7 @@ FIGHTERS = [
 
 # Example usage
 if __name__ == "__main__":
-    battle = Battle(fighter1=FIGHTERS[0], fighter2=FIGHTERS[2])
+    battle = Battle(fighter1=FIGHTERS[0], fighter2=FIGHTERS[1])
     
     while battle.isOngoing:
         battle.next_turn()
