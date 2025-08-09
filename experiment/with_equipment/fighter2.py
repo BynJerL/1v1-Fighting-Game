@@ -93,3 +93,23 @@ class Fighter:
     
     def loseMana(self, amount: int) -> None:
         self.currMana = max(0, min(self.currMana - amount, self.maxMana))
+
+    def getCurrStrength(self) -> int:
+        baseStrength = self.strength
+        strengthBonus = 0
+
+        for equipment in self.equipments.values():
+            if isinstance(equipment, Equipment):
+                strengthBonus += equipment.effectBonus.get('strength', 0)
+
+        return (baseStrength + strengthBonus)
+    
+    def getCurrArmor(self) -> int:
+        baseArmor = self.armor
+        armorBonus = 0
+
+        for equipment in self.equipments.values():
+            if isinstance(equipment, Equipment):
+                armorBonus += equipment.effectBonus.get('armor', 0)
+        
+        return (baseArmor + armorBonus)

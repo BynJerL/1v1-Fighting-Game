@@ -23,4 +23,6 @@ characters = [
             }, skills=[]),
 ]
 
-print(characters[0].equipments['hand'])
+print(characters[0].equipments['torso'])
+print(characters[0].getCurrStrength())
+print(characters[0].getCurrArmor())
