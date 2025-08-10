@@ -103,6 +103,18 @@ class Fighter:
                 bonus += equipment.effectBonus.get(statName, 0)
         
         return baseValue + bonus
+    
+    def rollCrit(self) -> bool:
+        return rd.random() < self.getCritChance()
+    
+    def rollHit(self, target: "Fighter") -> bool:
+        divisor = self.getAccuracy() + target.getEvasion()
+
+        if divisor == 0:
+            return False
+        
+        hitChance = self.getAccuracy() / divisor
+        return rd.random() < hitChance
 
     def getStrength(self) -> int:
         return self.getStats("strength")
