@@ -26,6 +26,47 @@ class Fighter:
                  equipments: dict[str, Equipment] = None,
                  skills: list = [],
                  statuses: list = []):
+        if len(name) == 0:
+            raise ValueError(f"Cannot insert empty name.")
+        if currHp < 0:
+            raise ValueError(f"currHp must not be less than 0. Got: {currHp}")
+        if maxHp < 0:
+            raise ValueError(f"maxHp must not be less than 0. Got: {maxHp}")
+        if currEn < 0:
+            raise ValueError(f"currEn must not be less than 0. Got: {currEn}")
+        if maxEn < 0:
+            raise ValueError(f"maxEn must not be less than 0. Got: {maxEn}")
+        if currMana < 0:
+            raise ValueError(f"currMana must not be less than 0. Got: {currMana}")
+        if maxMana < 0:
+            raise ValueError(f"maxMana must not be less than 0. Got: {maxMana}")
+        if currBurst < 0:
+            raise ValueError(f"currBurst must not be less than 0. Got: {currBurst}")
+        if energyRegen < 0:
+            raise ValueError(f"energyRegen must not be less than 0. Got: {energyRegen}")
+        if manaRegen < 0:
+            raise ValueError(f"manaRegen must not be less than 0. Got: {manaRegen}")
+        if burstGain < 0:
+            raise ValueError(f"burstGain must not be less than 0. Got: {burstGain}")
+        if strength < 0:
+            raise ValueError(f"strength must not be less than 0. Got: {strength}")
+        if intelligence < 0:
+            raise ValueError(f"intelligence must not be less than 0. Got: {intelligence}")
+        if armor < 0:
+            raise ValueError(f"armor must not be less than 0. Got: {armor}")
+        if spirit < 0:
+            raise ValueError(f"spirit must not be less than 0. Got: {spirit}")
+        if accuracy < 0:
+            raise ValueError(f"accuracy must not be less than 0. Got: {accuracy}")
+        if evasion < 0:
+            raise ValueError(f"evasion must not be less than 0. Got: {evasion}")
+        if speed < 0:
+            raise ValueError(f"speed must not be less than 0. Got: {speed}")
+        if critChance < 0:
+            raise ValueError(f"critChance must not be less than 0. Got: {critChance}")
+        if critDamage < 0:
+            raise ValueError(f"critDamage must not be less than 0. Got: {critDamage}")
+        
         self.name = name
         self.currHp = currHp
         self.maxHp = maxHp
