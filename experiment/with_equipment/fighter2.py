@@ -1,5 +1,5 @@
 import random as rd
-from equipment import Equipment
+from equipment import Equipment, EquipmentCategory
 
 class Fighter:
     def __init__(self,
@@ -23,7 +23,7 @@ class Fighter:
                  speed: int,
                  critChance: float,
                  critDamage: float,
-                 equipments: dict = None,
+                 equipments: dict[str, Equipment] = None,
                  skills: list = [],
                  statuses: list = []):
         self.name = name
