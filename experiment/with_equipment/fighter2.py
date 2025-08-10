@@ -4,6 +4,7 @@ from equipment import Equipment, EquipmentCategory
 MAX_HP_CAP = 999_999
 MAX_EN_CAP = 999
 MAX_MANA_CAP = 999
+MAX_BURST_CAP = 100
 
 class Fighter:
     def __init__(self,
@@ -38,7 +39,7 @@ class Fighter:
         _validate_stat(name="currEn", value=currEn, max_val= maxEn)
         _validate_stat(name="maxMana", value=maxMana, max_val=MAX_MANA_CAP)
         _validate_stat(name="currMana", value=currMana, max_val= maxMana)
-        _validate_stat(name="currBurst", value=currBurst, min_val=0.0, max_val=100.0)
+        _validate_stat(name="currBurst", value=currBurst, min_val=0.0, max_val=MAX_BURST_CAP)
         _validate_stat(name="energyRegen", value=energyRegen, min_val=0.0)
         _validate_stat(name="manaRegen", value=manaRegen, min_val=0.0)
         _validate_stat(name="burstGain", value=burstGain, min_val=0.0)
@@ -141,6 +142,12 @@ class Fighter:
         
         hitChance = self.getAccuracy() / divisor
         return rd.random() < hitChance
+    
+    def enableGuard(self) -> None:
+        self.isGuarded = True
+    
+    def disableGuard(self) -> None:
+        self.isGuarded = False
 
     def getStrength(self) -> int:
         return self.getStats("strength")
