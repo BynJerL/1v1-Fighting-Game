@@ -1,6 +1,10 @@
 import random as rd
 from equipment import Equipment, EquipmentCategory
 
+MAX_HP_CAP = 999_999
+MAX_EN_CAP = 999
+MAX_MANA_CAP = 999
+
 class Fighter:
     def __init__(self,
                  name: str,
@@ -28,44 +32,25 @@ class Fighter:
                  statuses: list = []):
         if len(name) == 0:
             raise ValueError(f"Cannot insert empty name.")
-        if currHp < 0:
-            raise ValueError(f"currHp must not be less than 0. Got: {currHp}")
-        if maxHp < 0:
-            raise ValueError(f"maxHp must not be less than 0. Got: {maxHp}")
-        if currEn < 0:
-            raise ValueError(f"currEn must not be less than 0. Got: {currEn}")
-        if maxEn < 0:
-            raise ValueError(f"maxEn must not be less than 0. Got: {maxEn}")
-        if currMana < 0:
-            raise ValueError(f"currMana must not be less than 0. Got: {currMana}")
-        if maxMana < 0:
-            raise ValueError(f"maxMana must not be less than 0. Got: {maxMana}")
-        if currBurst < 0:
-            raise ValueError(f"currBurst must not be less than 0. Got: {currBurst}")
-        if energyRegen < 0:
-            raise ValueError(f"energyRegen must not be less than 0. Got: {energyRegen}")
-        if manaRegen < 0:
-            raise ValueError(f"manaRegen must not be less than 0. Got: {manaRegen}")
-        if burstGain < 0:
-            raise ValueError(f"burstGain must not be less than 0. Got: {burstGain}")
-        if strength < 0:
-            raise ValueError(f"strength must not be less than 0. Got: {strength}")
-        if intelligence < 0:
-            raise ValueError(f"intelligence must not be less than 0. Got: {intelligence}")
-        if armor < 0:
-            raise ValueError(f"armor must not be less than 0. Got: {armor}")
-        if spirit < 0:
-            raise ValueError(f"spirit must not be less than 0. Got: {spirit}")
-        if accuracy < 0:
-            raise ValueError(f"accuracy must not be less than 0. Got: {accuracy}")
-        if evasion < 0:
-            raise ValueError(f"evasion must not be less than 0. Got: {evasion}")
-        if speed < 0:
-            raise ValueError(f"speed must not be less than 0. Got: {speed}")
-        if critChance < 0:
-            raise ValueError(f"critChance must not be less than 0. Got: {critChance}")
-        if critDamage < 0:
-            raise ValueError(f"critDamage must not be less than 0. Got: {critDamage}")
+        _validate_stat(name="maxHp", value=maxHp, max_val=MAX_HP_CAP)
+        _validate_stat(name="currHp", value=currHp, max_val=maxHp)
+        _validate_stat(name="maxEn", value=maxEn, max_val=MAX_EN_CAP)
+        _validate_stat(name="currEn", value=currEn, max_val= maxEn)
+        _validate_stat(name="maxMana", value=maxMana, max_val=MAX_MANA_CAP)
+        _validate_stat(name="currMana", value=currMana, max_val= maxMana)
+        _validate_stat(name="currBurst", value=currBurst, min_val=0.0, max_val=100.0)
+        _validate_stat(name="energyRegen", value=energyRegen, min_val=0.0)
+        _validate_stat(name="manaRegen", value=manaRegen, min_val=0.0)
+        _validate_stat(name="burstGain", value=burstGain, min_val=0.0)
+        _validate_stat(name="strength", value=strength, min_val=0)
+        _validate_stat(name="intelligence", value=intelligence, min_val=0)
+        _validate_stat(name="armor", value=armor, min_val=0)
+        _validate_stat(name="spirit", value=spirit, min_val=0)
+        _validate_stat(name="accuracy", value=accuracy, min_val=0)
+        _validate_stat(name="evasion", value=evasion, min_val=0)
+        _validate_stat(name="speed", value=speed, min_val=0)
+        _validate_stat(name="critChance", value=critChance, min_val=0.0, max_val=1.0)
+        _validate_stat(name="critDamage", value=critDamage, min_val=0.0)
         
         self.name = name
         self.currHp = currHp
@@ -183,3 +168,9 @@ class Fighter:
     
     def getCritDamage(self) -> float:
         return self.getStats("critDamage")
+    
+def _validate_stat(name: str, value: int|float, min_val: int|float = 0, max_val: int|float = None):
+    if value < min_val:
+        raise ValueError(f"{name} must not be less than {min_val}. Got: {value}")
+    if max_val is not None and value > max_val:
+        raise ValueError(f"{name} must not be greater than {max_val}. Got: {value}")
