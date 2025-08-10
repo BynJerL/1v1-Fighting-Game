@@ -23,6 +23,16 @@ characters = [
             }, skills=[]),
 ]
 
+print(characters[0].getHpStatus())
+print(characters[0].getManaStatus())
+print(characters[0].getEnStatus())
 print(characters[0].equipments['torso'])
-print(characters[0].getCurrStrength())
-print(characters[0].getCurrArmor())
+print(characters[0].getStrength())
+print(characters[0].getIntelligence())
+print(characters[0].getArmor())
+print(characters[0].getSpirit())
+print(characters[0].getSpeed())
+print(characters[0].getAccuracy())
+print(characters[0].getEvasion())
+print(characters[0].getCritChance())
+print(characters[0].getCritDamage())

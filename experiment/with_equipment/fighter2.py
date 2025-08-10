@@ -23,14 +23,7 @@ class Fighter:
                  speed: int,
                  critChance: float,
                  critDamage: float,
-                 equipments: dict = {
-                     'head': None,
-                     'torso': None,
-                     'hand': None,
-                     'foot': None,
-                     'acc_1': None,
-                     'acc_2': None
-                 },
+                 equipments: dict = None,
                  skills: list = [],
                  statuses: list = []):
         self.name = name
@@ -54,7 +47,14 @@ class Fighter:
         self.critChance = critChance
         self.critDamage = critDamage
         
-        self.equipments = equipments
+        self.equipments = equipments or {
+            'head': None,
+            'torso': None,
+            'hand': None,
+            'foot': None,
+            'acc_1': None,
+            'acc_2': None
+        }
         self.skills = skills
         self.statuses = statuses
 
@@ -93,23 +93,40 @@ class Fighter:
     
     def loseMana(self, amount: int) -> None:
         self.currMana = max(0, min(self.currMana - amount, self.maxMana))
-
-    def getCurrStrength(self) -> int:
-        baseStrength = self.strength
-        strengthBonus = 0
-
-        for equipment in self.equipments.values():
-            if isinstance(equipment, Equipment):
-                strengthBonus += equipment.effectBonus.get('strength', 0)
-
-        return (baseStrength + strengthBonus)
     
-    def getCurrArmor(self) -> int:
-        baseArmor = self.armor
-        armorBonus = 0
+    def getStats(self, statName: str):
+        baseValue = getattr(self, statName, 0)
+        bonus = 0
 
         for equipment in self.equipments.values():
             if isinstance(equipment, Equipment):
-                armorBonus += equipment.effectBonus.get('armor', 0)
+                bonus += equipment.effectBonus.get(statName, 0)
         
-        return (baseArmor + armorBonus)
+        return baseValue + bonus
+
+    def getStrength(self) -> int:
+        return self.getStats("strength")
+    
+    def getIntelligence(self) -> int:
+        return self.getStats("intelligence")
+    
+    def getArmor(self) -> int:
+        return self.getStats("armor")
+    
+    def getSpirit(self) -> int:
+        return self.getStats("spirit")
+    
+    def getSpeed(self) -> int:
+        return self.getStats("speed")
+    
+    def getAccuracy(self) -> int:
+        return self.getStats("accuracy")
+    
+    def getEvasion(self) -> int:
+        return self.getStats("evasion")
+    
+    def getCritChance(self) -> float:
+        return self.getStats("critChance")
+    
+    def getCritDamage(self) -> float:
+        return self.getStats("critDamage")

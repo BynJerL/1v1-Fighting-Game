@@ -17,4 +17,4 @@ class Equipment:
         self.effectBonus = effectBonus
     
     def __str__(self):
-        return f"{self.name} ({self.category}) - Bonuses: {self.effectBonus}"
+        return f"{self.name} ({self.category.name.title()}) - Bonuses: {self.effectBonus}"
