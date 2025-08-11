@@ -1,5 +1,6 @@
 from equipment import EquipmentCategory, Equipment
 from fighter2 import Fighter
+from battle_manager import BattleManager
 
 characters = [
     Fighter(name="Hero", currHp=240, maxHp=240, currEn=35, maxEn=35, currMana=15, maxMana=15, currBurst=0, energyRegen=0.075, manaRegen=0.06, burstGain=12.5, strength=42, intelligence=32, armor=15, spirit=12, accuracy=94, evasion=10, speed=100, critChance=0.2, critDamage=0.75,
@@ -21,7 +22,7 @@ characters = [
                 'acc_1': None,
                 'acc_2': None,
             }, skills=[]),
-    Fighter(name="Sidekick", currHp=240, maxHp=240, currEn=35, maxEn=35, currMana=15, maxMana=15, currBurst=0, energyRegen=0.075, manaRegen=0.06, burstGain=12.5, strength=36, intelligence=28, armor=15, spirit=12, accuracy=94, evasion=10, speed=100, critChance=0.2, critDamage=0.75,
+    Fighter(name="Sidekick", currHp=240, maxHp=240, currEn=35, maxEn=35, currMana=15, maxMana=15, currBurst=0, energyRegen=0.075, manaRegen=0.06, burstGain=12.5, strength=36, intelligence=28, armor=15, spirit=12, accuracy=94, evasion=10, speed=110, critChance=0.2, critDamage=0.75,
             equipments={
                 'head': Equipment(name='Leather Helmet', category=EquipmentCategory.HEAD, effectBonus={
                     'armor': +4,
@@ -55,3 +56,8 @@ print(characters[0].getAccuracy())
 print(characters[0].getEvasion())
 print(characters[0].getCritChance())
 print(characters[0].getCritDamage())
+
+_BM = BattleManager(characters[0], characters[1])
+_BM.startBattle()
+for fighter in _BM.currentQueue:
+    print(fighter.name)
