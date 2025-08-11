@@ -43,21 +43,21 @@ characters = [
             }, skills=[]),
 ]
 
-print(characters[0].getHpStatus())
-print(characters[0].getManaStatus())
-print(characters[0].getEnStatus())
-print(characters[0].equipments['torso'])
-print(characters[0].getStrength())
-print(characters[0].getIntelligence())
-print(characters[0].getArmor())
-print(characters[0].getSpirit())
-print(characters[0].getSpeed())
-print(characters[0].getAccuracy())
-print(characters[0].getEvasion())
-print(characters[0].getCritChance())
-print(characters[0].getCritDamage())
+# print(characters[0].getHpStatus())
+# print(characters[0].getManaStatus())
+# print(characters[0].getEnStatus())
+# print(characters[0].equipments['torso'])
+# print(characters[0].getStrength())
+# print(characters[0].getIntelligence())
+# print(characters[0].getArmor())
+# print(characters[0].getSpirit())
+# print(characters[0].getSpeed())
+# print(characters[0].getAccuracy())
+# print(characters[0].getEvasion())
+# print(characters[0].getCritChance())
+# print(characters[0].getCritDamage())
 
 _BM = BattleManager(characters[0], characters[1])
 _BM.startBattle()
-for fighter in _BM.currentQueue:
-    print(fighter.name)
+# for fighter in _BM.currentQueue:
+#     print(fighter.name)
