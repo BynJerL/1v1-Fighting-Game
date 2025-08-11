@@ -224,6 +224,8 @@ class Fighter:
         
         return max(0, int(damage))
     
+    
+    
 def _validate_stat(name: str, value: int|float, min_val: int|float = 0, max_val: int|float = None):
     if value < min_val:
         raise ValueError(f"{name} must not be less than {min_val}. Got: {value}")
