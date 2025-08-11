@@ -1,5 +1,6 @@
 import random as rd
 from equipment import Equipment, EquipmentCategory
+from attack_type import AttackType
 
 MAX_HP_CAP = 999_999
 MAX_EN_CAP = 999
@@ -175,6 +176,23 @@ class Fighter:
     
     def getCritDamage(self) -> float:
         return self.getStats("critDamage")
+    
+    def calculateDamage(self, target: "Fighter", attack_type: AttackType, multiplier: int):
+        if attack_type == AttackType.PHYSICAL:
+            attack_stat = self.getStrength()
+            defense_stat = target.getArmor()
+        elif attack_type == AttackType.MAGICAL:
+            attack_stat = self.getIntelligence()
+            defense_stat = target.getSpirit()
+        else:
+            raise ValueError("Unknown attack type.")
+        
+        damage = max(0, (attack_stat * multiplier) - defense_stat)
+
+        if target.isGuarded:
+            damage *= 0.5
+        
+        return int(damage)
     
 def _validate_stat(name: str, value: int|float, min_val: int|float = 0, max_val: int|float = None):
     if value < min_val:
