@@ -11,6 +11,9 @@ class BattleManager:
     
     def startBattle(self):
         print("Battle Starts!")
+        self.currentQueue = self.rollTurn()
+        self.roundCycle = 1
+        print(f"--------- Round #{self.roundCycle} ----------")
 
         while not self.winner:
             if not self.currentQueue:

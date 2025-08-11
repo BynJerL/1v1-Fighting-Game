@@ -30,9 +30,9 @@ characters = [
                 'torso': Equipment(name='Leather Jacket', category=EquipmentCategory.TORSO, effectBonus={
                     'armor': +5,
                 }),
-                'hand': Equipment(name="Leather Gloves", category=EquipmentCategory.HAND, effectBonus={
-                    'armor': +2,
-                    'strength': +5
+                'hand': Equipment(name="Apprentice Gloves", category=EquipmentCategory.HAND, effectBonus={
+                    'armor': +4,
+                    'strength': +8
                 }),
                 'foot': Equipment(name="Leather Gloves", category=EquipmentCategory.FOOT, effectBonus={
                     'armor': +3,

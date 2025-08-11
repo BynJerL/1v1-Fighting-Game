@@ -206,14 +206,14 @@ class Fighter:
             elif stat_name == "enemyHpRatio":
                 value = target.currHp / target.maxHp 
             elif hasattr(self, stat_name):
-                value = getattr(self, stat_name)
+                value = self.getStats(statName=stat_name)
             else:
                 raise ValueError(f"Unknown stat: {stat_name}")
             
             total_attack_value += value * multiplier
         
         if not formula.get("ignoreDefense", False):
-            defense_value = getattr(target, formula["defenseStat"], 0)
+            defense_value = target.getStats(formula["defenseStat"])
         else:
             defense_value = 0
         
@@ -224,7 +224,7 @@ class Fighter:
         
         return max(0, int(damage))
     
-    
+
     
 def _validate_stat(name: str, value: int|float, min_val: int|float = 0, max_val: int|float = None):
     if value < min_val:
