@@ -29,8 +29,8 @@ class Fighter:
                  critChance: float,
                  critDamage: float,
                  equipments: dict[str, Equipment] = None,
-                 skills: list = [],
-                 statuses: list = []):
+                 skills: list = None,
+                 statuses: list = None):
         if len(name) == 0:
             raise ValueError(f"Cannot insert empty name.")
         _validate_stat(name="maxHp", value=maxHp, max_val=MAX_HP_CAP)
@@ -82,8 +82,8 @@ class Fighter:
             'acc_1': None,
             'acc_2': None
         }
-        self.skills = skills
-        self.statuses = statuses
+        self.skills = skills or []
+        self.statuses = statuses or []
 
         self.isGuarded = False
     
