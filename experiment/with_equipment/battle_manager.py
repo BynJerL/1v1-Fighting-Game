@@ -9,26 +9,35 @@ class BattleManager:
         self.actionCount = 0
         self.winner = None
     
-    def startBattle(self):
+    def startBattle(self, surprise_attacker = None):
         print("Battle Starts!")
-        self.currentQueue = self.rollTurn()
-        self.roundCycle = 1
-        print(f"--------- Round #{self.roundCycle} ----------")
 
+        if surprise_attacker:
+            print("--- Surprise Attack! ---")
+            self.currentQueue = [surprise_attacker]
+            self.roundCycle = 0
+        else:
+            self.currentQueue = self.rollTurn()
+            self.roundCycle = 1
+            print(f"--------- Round #{self.roundCycle} ----------")
+        
+        self.handleQueue()
+
+    def handleQueue(self):
         while not self.winner:
             if not self.currentQueue:
                 self.currentQueue = self.rollTurn()
                 self.roundCycle += 1
                 print(f"--------- Round #{self.roundCycle} ----------")
-            
-            attacker = self.currentQueue.pop(0)
 
+            attacker = self.currentQueue.pop(0)
             if not attacker.isAlive:
                 continue
 
-            # Placeholder ()
+            # Placeholder
             defender = self.enemyFighter if attacker is self.playerFighter else self.playerFighter
-            self.take_turn(attacker=attacker, defender=defender)
+            
+            self.take_turn(attacker, defender)
             self.check_victory()
 
     def rollTurn(self):
