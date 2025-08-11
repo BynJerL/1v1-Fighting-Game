@@ -177,22 +177,52 @@ class Fighter:
     def getCritDamage(self) -> float:
         return self.getStats("critDamage")
     
-    def calculateDamage(self, target: "Fighter", attack_type: AttackType, multiplier: int):
-        if attack_type == AttackType.PHYSICAL:
-            attack_stat = self.getStrength()
-            defense_stat = target.getArmor()
-        elif attack_type == AttackType.MAGICAL:
-            attack_stat = self.getIntelligence()
-            defense_stat = target.getSpirit()
-        else:
-            raise ValueError("Unknown attack type.")
+    def calculateDamage(self, target: "Fighter", formula: dict):
+        """
+        formula example:
+        {
+            "components": [
+                {"stat": "strength", "multiplier": 1.2},
+                {"stat": "hpDiff", "multiplier": 0.5}
+            ],
+            "defenseStat": "armor",
+            "ignoreDefense": False,
+            "flatBonus": 0
+        }
+        """
+        total_attack_value = 0
+
+        for component in formula["components"]:
+            stat_name = component["stat"]
+            multiplier = component["multiplier"]
+
+            if stat_name == "hpDiff":
+                value = self.maxHp - self.currHp
+            elif stat_name == "enemyHpDiff":
+                # Maybe Illegal :D
+                value = target.maxHp - target.currHp
+            elif stat_name == "hpRatio":
+                value = self.currHp / self.maxHp
+            elif stat_name == "enemyHpRatio":
+                value = target.currHp / target.maxHp 
+            elif hasattr(self, stat_name):
+                value = getattr(self, stat_name)
+            else:
+                raise ValueError(f"Unknown stat: {stat_name}")
+            
+            total_attack_value += value * multiplier
         
-        damage = max(0, (attack_stat * multiplier) - defense_stat)
+        if not formula.get("ignoreDefense", False):
+            defense_value = getattr(target, formula["defenseStat"], 0)
+        else:
+            defense_value = 0
+        
+        damage = total_attack_value - defense_value + formula.get("flatBonus", 0)
 
         if target.isGuarded:
             damage *= 0.5
         
-        return int(damage)
+        return max(0, int(damage))
     
 def _validate_stat(name: str, value: int|float, min_val: int|float = 0, max_val: int|float = None):
     if value < min_val:
