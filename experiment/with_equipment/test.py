@@ -58,6 +58,6 @@ characters = [
 # print(characters[0].getCritDamage())
 
 _BM = BattleManager(characters[0], characters[1])
-_BM.startBattle(surprise_attacker=characters[1])
+_BM.startBattle()
 # for fighter in _BM.currentQueue:
 #     print(fighter.name)
