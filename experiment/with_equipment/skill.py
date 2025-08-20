@@ -15,3 +15,6 @@ class Skill:
         self.formula = formula
         self.targetType = targetType
         self.specialFlags = specialFlags or {}
+    
+    def execute(self, user, target):
+        pass
